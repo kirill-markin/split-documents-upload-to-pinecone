@@ -17,6 +17,8 @@ load_dotenv()
 # Load documents
 
 directory = './data'
+if not os.path.exists(directory):
+  os.makedirs(directory)
 
 def load_docs(directory):
   loader = DirectoryLoader(directory, glob="**/*.md", loader_cls=TextLoader)

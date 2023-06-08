@@ -159,5 +159,9 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# Ignore all files in logs_dir
+# Ignore all files in logs
 logs/*
+
+# Ignore all files in directory data but not file how-to-use-this-folder.txt
+data/*
+!data/how-to-use-this-folder.txt
