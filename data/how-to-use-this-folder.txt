@@ -1,0 +1,4 @@
+# How to use this folder `data`
+
+1. Add your documents to this `data` folder. It can be a single file or multiple files in inner folders. The script will process all files `*.md` in the folder.
+2. Follow the instructions in the [README.md](../README.md) file to run the script.
