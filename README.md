@@ -1,6 +1,6 @@
 # split-documents-upload-to-pinecone
 
-Divide documents and upload text segments to Pinecone with the script.
+Divide documents and upload text segments to Pinecone with this python script.
 
 ## Installation
 

@@ -1,4 +1,5 @@
 import os
+import time
 import datetime
 
 import pinecone
@@ -93,10 +94,25 @@ print(f"pinecone.describe_index(index_name):, {pinecone.describe_index(index_nam
 # Upload the embeddings to the index
 # Can take 10 minutes or more
 
-index = Pinecone.from_documents(docs, embeddings, index_name=index_name) # create and upload
-# index = Pinecone.from_existing_index(index_name, embeddings) # connect to existing index
+def upload_documents_with_retry(retries=3, delay=5):
+    for i in range(retries):
+        try:
+            # create index and upload documents
+            index = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+            return index
+        except pinecone.core.client.exceptions.ServiceException as e:
+            if i < retries - 1:
+                print(f"Upload failed. Retrying in {delay} seconds.")
+                time.sleep(delay)
+                delay *= 2
+            else:
+                raise e
 
+index = upload_documents_with_retry()
+# index = Pinecone.from_existing_index(index_name, embeddings) # connect to existing index
+print(f"Pinecone index created: {index}")
 
 query = "test"
 k = 2
-print(index.similarity_search_with_score(query, k=k))
+res = index.similarity_search_with_score(query, k=k)
+print(f"Result of test query: {res}")
